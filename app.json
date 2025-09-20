@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "task-docket-native",
+    "slug": "task-docket-native",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon-logo-task-docket.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.holycannoli.taskdocketnative",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.holycannoli.taskdocketnative"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0e436355-af67-4cce-ba2d-b6054ba349cb"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0e436355-af67-4cce-ba2d-b6054ba349cb"
+    }
+  }
+}
