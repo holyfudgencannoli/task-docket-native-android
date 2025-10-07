@@ -53,7 +53,7 @@ const TaskDataTable = () => {
     async function getDaysTasks() {
         let isoString = date.toISOString().slice(0, 10);
         try {
-            let res = await fetch('https://react-tasks-online.onrender.com/api/get-tasks-by-date', {
+            let res = await fetch('https://react-tasks-online.onrender.com/api/get-completed-tasks-by-date', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -106,7 +106,7 @@ const TaskDataTable = () => {
     let fetchTasks = async () => {
         let isoString = date.toISOString().slice(0, 10);
         try {
-            let res = await fetch('https://react-tasks-online.onrender.com/api/get-tasks', {
+            let res = await fetch('https://react-tasks-online.onrender.com/api/get-completed-tasks', {
                 method: 'GET',
                 credentials: 'include',
                 headers: {

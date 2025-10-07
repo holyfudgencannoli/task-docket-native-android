@@ -6,12 +6,39 @@ import { StyleSheet } from "react-native";
 import {BarChart} from 'react-native-gifted-charts'
 import { useCallback, useLayoutEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { NativeModules } from 'react-native';
+import { TimestampTrigger, TriggerType } from '@notifee/react-native';
+import notifee from '@notifee/react-native';
 
 
 export default function Dashboard() {
     const { user, token } = useAuth()
     const [tasksToday, setTasksToday] = useState([])
+
+    async function scheduleNotification() {
+        // Fire 5 seconds from now (for example)
+        const date = new Date(Date.now() + 5000);
+
+        const trigger: TimestampTrigger = {
+            type: TriggerType.TIMESTAMP,
+            timestamp: date.getTime(),
+            repeatFrequency: undefined, // optional: DAILY, WEEKLY
+        };
+
+        await notifee.createTriggerNotification(
+            {
+            title: 'Scheduled Notification',
+            body: 'This will appear at the scheduled time',
+            android: {
+                channelId: 'default',
+            },
+            },
+            trigger
+        );
+
+        console.log('Notification scheduled for:', date);
+    }
+
+
 
     const fetchTodaysTasks = async () => {
         const res = await fetch('https://react-tasks-online.onrender.com/api/get-tasks-today', {
@@ -24,7 +51,7 @@ export default function Dashboard() {
 
         setTasksToday(incompleteTasks);
     }
-    const notify = NativeModules.NativeNotifications.showNotification("Hi!", "This works on Android!");
+    
 
     useLayoutEffect(() => {
         fetchTodaysTasks();
@@ -65,7 +92,7 @@ export default function Dashboard() {
                     Tasks Due Today
                 </ThemedText>
             <View>
-            <Button title="Press" onPress={notify} />
+                <Button title="press" onPress={scheduleNotification} />
                 <FlatList
                     style={styles.list}
                     data={tasksToday}

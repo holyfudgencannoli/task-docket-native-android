@@ -7,12 +7,37 @@ import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../scripts/AuthContext';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import notifee from '@notifee/react-native';
 
 export default function Login() {
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [showPassword, setShowPassword] = React.useState(false);
     const { login } = useAuth();
+
+    
+        async function requestPermission() {
+            const settings = await notifee.requestPermission();
+    
+            if (settings.authorizationStatus >= 1) {
+                console.log('Permission granted!');
+            } else {
+                console.log('Permission denied!');
+            }
+        }
+    
+            async function createChannel() {
+                await notifee.createChannel({
+                    id: 'default',
+                    name: 'Default Channel',
+                    importance: notifee.AndroidImportance.HIGH,
+                });
+            }
+    
+            React.useEffect(() => {
+                requestPermission()
+                createChannel()
+            }, [])
 
     const navigation = useNavigation()
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "758613294426",
+    "project_id": "task-docket-push",
+    "storage_bucket": "task-docket-push.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758613294426:android:069a1629eb6bb08c278763",
+        "android_client_info": {
+          "package_name": "com.holycannoli.taskdocketnative"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-KwSajNEWZxKa-p00VpYolFBuAn9ih2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -32,9 +32,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-        "expo-notifications"
-    ],
+    "plugins": ["./plugins/with-notifee"],
     "extra": {
       "eas": {
         "projectId": "0e436355-af67-4cce-ba2d-b6054ba349cb"
