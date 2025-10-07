@@ -10,56 +10,23 @@ import { useRef } from 'react';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import { Platform } from 'react-native';
+import notifee, {AuthorizationStatus} from '@notifee/react-native';
 
+async function requestPermission() {
+    const settings = await notifee.requestPermission();
+
+    if (settings.authorizationStatus >= AuthorizationStatus.AUTHORIZED) {
+        console.log('Notification permission granted.');
+    } else {
+        console.log('Notification permission denied.');
+    }
+}
 
 export default function App() {
     const colorScheme = useColorScheme();
     const notificationListener = useRef();
     const responseListener = useRef();
 
-    useEffect(() => {
-        if (!Device.isDevice) {
-            console.log("Must use a physical device for notifications");
-            return;
-        }
-
-        let notificationListenerRef = Notifications.addNotificationReceivedListener(notification => {
-            console.log('Notification received:', notification);
-        });
-
-        let responseListenerRef = Notifications.addNotificationResponseReceivedListener(response => {
-            console.log('User tapped notification:', response);
-        });
-
-        (async () => {
-            const { status: existingStatus } = await Notifications.getPermissionsAsync();
-            let finalStatus = existingStatus;
-
-            if (existingStatus !== 'granted') {
-                const { status } = await Notifications.requestPermissionsAsync();
-                finalStatus = status;
-            }
-
-            if (finalStatus !== 'granted') {
-                alert('Permission for notifications not granted!');
-                return;
-            }
-
-            if (Platform.OS === 'android') {
-                await Notifications.setNotificationChannelAsync('default', {
-                    name: 'default',
-                    importance: Notifications.AndroidImportance.MAX,
-                });
-            }
-
-            console.log("Notification setup complete.");
-        })();
-
-        return () => {
-            Notifications.removeNotificationSubscription(notificationListenerRef);
-            Notifications.removeNotificationSubscription(responseListenerRef);
-        };
-    }, []);
 
  
   return (

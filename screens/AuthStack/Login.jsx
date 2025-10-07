@@ -16,28 +16,21 @@ export default function Login() {
     const { login } = useAuth();
 
     
-        async function requestPermission() {
-            const settings = await notifee.requestPermission();
-    
-            if (settings.authorizationStatus >= 1) {
-                console.log('Permission granted!');
-            } else {
-                console.log('Permission denied!');
-            }
+    async function requestPermission() {
+        const settings = await notifee.requestPermission();
+
+        if (settings.authorizationStatus >= 1) {
+            console.log('Permission granted!');
+        } else {
+            console.log('Permission denied!');
         }
+    }
+
     
-            async function createChannel() {
-                await notifee.createChannel({
-                    id: 'default',
-                    name: 'Default Channel',
-                    importance: notifee.AndroidImportance.HIGH,
-                });
-            }
-    
-            React.useEffect(() => {
-                requestPermission()
-                createChannel()
-            }, [])
+
+    React.useEffect(() => {
+        requestPermission()
+    }, [])
 
     const navigation = useNavigation()
 

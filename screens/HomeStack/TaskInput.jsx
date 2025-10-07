@@ -8,6 +8,7 @@ import { ThemedView } from '../../components/ThemedView';
 import { KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Notifications from "expo-notifications";
+import { scheduleNotification } from '../../scripts/NotificationScheduling';
 
 
 export default function TaskInput() {
@@ -17,21 +18,6 @@ export default function TaskInput() {
     const [dueDatetime, setDueDatetime] = useState(new Date());
     const [logDatetime, setLogDatetime] = useState(new Date());
 
-
-    async function scheduleTaskReminder() {
-        await Notifications.scheduleNotificationAsync({
-            content: {
-                title: "Task Reminder ⏰",
-                body: `Don't forget: ${taskName}`,
-                data: { logDatetime: new Date(logDatetime) },
-            },
-            trigger: {
-                date: new Date(dueDatetime), // pass Date object
-                channelId: 'default'
-            },
-        });
-        console.log('Notification Set For : ' + dueDatetime.toLocaleString())
-    }
 
 
   // Update logDatetime every second
@@ -91,10 +77,10 @@ export default function TaskInput() {
         console.log('Task log response:', data);
 
         if (data.success) {
+            scheduleNotification(dueDatetime.getTime(), "Upcoming Task Reminder", `"${taskName}" deadline coming up. Don't forget to finish by ${dueDatetime.toLocaleString()}`)
             setTaskName('');
             setDueDatetime(new Date());
         }
-        scheduleTaskReminder()
     } catch (error) {
       console.error('Error submitting task:', error);
     }

@@ -6,38 +6,13 @@ import { StyleSheet } from "react-native";
 import {BarChart} from 'react-native-gifted-charts'
 import { useCallback, useLayoutEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { TimestampTrigger, TriggerType } from '@notifee/react-native';
-import notifee from '@notifee/react-native';
+import { scheduleNotification } from "../../scripts/NotificationScheduling";
+
 
 
 export default function Dashboard() {
     const { user, token } = useAuth()
     const [tasksToday, setTasksToday] = useState([])
-
-    async function scheduleNotification() {
-        // Fire 5 seconds from now (for example)
-        const date = new Date(Date.now() + 5000);
-
-        const trigger: TimestampTrigger = {
-            type: TriggerType.TIMESTAMP,
-            timestamp: date.getTime(),
-            repeatFrequency: undefined, // optional: DAILY, WEEKLY
-        };
-
-        await notifee.createTriggerNotification(
-            {
-            title: 'Scheduled Notification',
-            body: 'This will appear at the scheduled time',
-            android: {
-                channelId: 'default',
-            },
-            },
-            trigger
-        );
-
-        console.log('Notification scheduled for:', date);
-    }
-
 
 
     const fetchTodaysTasks = async () => {
@@ -92,7 +67,7 @@ export default function Dashboard() {
                     Tasks Due Today
                 </ThemedText>
             <View>
-                <Button title="press" onPress={scheduleNotification} />
+                <Button title="press" />
                 <FlatList
                     style={styles.list}
                     data={tasksToday}
